@@ -1,13 +1,14 @@
 package com.example.MStore.services;
 
-import com.example.store.converters.ProductToProductDto;
-import com.example.store.dto.ProductDto;
-import com.example.store.exceptions.ResourceNotFoundException;
-import com.example.store.model.Category;
-import com.example.store.model.Product;
-import com.example.store.repositories.CategoryRepository;
-import com.example.store.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
+
+import com.example.MStore.converters.ProductToProductDto;
+import com.example.MStore.dto.ProductDto;
+import com.example.MStore.exceptions.ResourceNotFoundException;
+import com.example.MStore.model.Category;
+import com.example.MStore.model.Product;
+import com.example.MStore.repositories.CategoryRepository;
+import com.example.MStore.repositories.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;

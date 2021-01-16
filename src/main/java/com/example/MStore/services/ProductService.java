@@ -1,8 +1,8 @@
 package com.example.MStore.services;
 
-import com.example.store.dto.ProductDto;
-
 import java.util.List;
+
+import com.example.MStore.dto.ProductDto;
 
 public interface ProductService {
 

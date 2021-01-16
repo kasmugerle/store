@@ -1,8 +1,9 @@
 package com.example.MStore.controllers;
 
-import com.example.store.dto.ProductDto;
-import com.example.store.services.ProductService;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.MStore.dto.ProductDto;
+import com.example.MStore.services.ProductService;
 
 import java.util.List;
 import java.util.Set;
