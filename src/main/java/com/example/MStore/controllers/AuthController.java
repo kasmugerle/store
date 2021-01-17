@@ -22,6 +22,8 @@ import com.example.MStore.repositories.RoleRepository;
 import com.example.MStore.repositories.UserRepository;
 import com.example.MStore.security.JwtTokenProvider;
 import com.example.MStore.securityDto.ApiResponse;
+import com.example.MStore.securityDto.JwtAuthenticationResponse;
+import com.example.MStore.securityDto.LoginRequest;
 import com.example.MStore.securityDto.SignUpRequest;
 
 import javax.validation.Valid;
@@ -70,6 +72,25 @@ public class AuthController {
 
         return ResponseEntity.ok().body((new ApiResponse(true, "User registered successfully!")));
     }
+    
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsernameOrEmail(),
+                        loginRequest.getPassword()
+                ));
 
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = tokenProvider.generateToken(authentication);
 
+        User user =
+                userRepository.findByUsernameOrEmail(loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail())
+                .orElseThrow(() -> new AppException("Username or password is wrong!"));
+
+        Role role =
+                user.getRoles().stream().findFirst().orElseThrow(() -> new AppException("User role not set."));
+
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, role.getName().name()));
+    }
 }
